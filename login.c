@@ -2,6 +2,7 @@
 #include <string.h>
 #include "register.h"
 #include "login.h"
+#include "dashboard.h"
 
 void loginUser(){
     printf("-------- Login --------\n");
@@ -33,6 +34,8 @@ void loginUser(){
     if (found == 1)
     {
     printf("Login successful!\n");
+    dashboard();
+
     }
     else
     {
