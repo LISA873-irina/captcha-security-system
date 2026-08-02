@@ -1,5 +1,8 @@
 #include<stdio.h>
 #include "passwordmanager.h"
+#include <string.h>
+
+
 void passwordManager(){
     printf("\n===== Password Manager =====\n");
     int passwordChoice;
@@ -79,6 +82,7 @@ void passwordManager(){
                 printf("No saved passwords found!\n");
                 return;
             }
+
             Password read ;
             while (fread(&read, sizeof(read), 1, fp) == 1){
 
@@ -96,6 +100,7 @@ void passwordManager(){
         {
             FILE *fp = fopen("passwords.dat", "rb");
             FILE *temp = fopen("updatePasswords.dat", "wb");
+
             if(fp == NULL || temp == NULL)
             {
                 printf("File error!\n");
@@ -122,6 +127,7 @@ void passwordManager(){
 
             fclose(fp);
             fclose(temp);
+
             if(found == 1)
             {
                 remove("passwords.dat");
@@ -139,6 +145,50 @@ void passwordManager(){
 
         void deletePassword()
         {
+            FILE *fp = fopen("passwords.dat", "rb");
+            FILE *temp = fopen("deletePasswords.dat", "wb");
+
+            if (fp == NULL || temp == NULL)
+            {
+                printf("File error!\n");
+                return;
+            }
+
+            char deleteService[50];
+
+            printf("Enter Service Name to delete: ");
+            scanf("%s", deleteService);
+
+            Password deleteRecord;
+            int found = 0;
+
+        while (fread(&deleteRecord, sizeof(deleteRecord), 1, fp) == 1){
+
+            if (strcmp(deleteRecord.serviceName, deleteService) == 0)
+            {
+                found = 1;
+            }
+            else
+            {
+                fwrite(&deleteRecord, sizeof(deleteRecord), 1, temp);
+            }
+        }
+        fclose(fp);
+        fclose(temp);
+
+        if(found == 1)
+        {
+            remove("passwords.dat");
+            rename("deletePasswords.dat", "passwords.dat");
+            printf("Password deleted successfully!\n");
+
+        }
+        else
+        {
+            remove("deletePasswords.dat");
+            printf("Service not found!\n");
+
+        }
 
         }
 
