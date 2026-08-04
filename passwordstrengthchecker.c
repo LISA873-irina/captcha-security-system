@@ -6,7 +6,7 @@ void passwordStrengthChecker(){
 
     char password[31] ;
     printf("Enter Password: ");
-    scanf("%30s", password);
+    scanf("%s", password);
 
     int score = 0;
     int upper = 0;

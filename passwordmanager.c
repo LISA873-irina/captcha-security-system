@@ -10,6 +10,7 @@ void passwordManager(){
     printf("2. View Password\n");
     printf("3. Update Password\n");
     printf("4. Delete Password\n");
+    printf("5. Search Password\n");
     printf("5. Password Strength Checker\n");
     printf("6. Back\n");
     
@@ -34,6 +35,10 @@ void passwordManager(){
         else if (passwordChoice == 4)
         {
             deletePassword() ;
+        }
+        else if (passwordChoice == 5)
+        {
+            searchPassword();
         }
         else if (passwordChoice == 5)
         {
@@ -192,8 +197,42 @@ void passwordManager(){
 
         }
 
-        void passwordStrengthChecker()
-        {
+        void searchPassword(){
+
+            FILE *fp = fopen("passwords.dat", "rb");
+                if (fp == NULL)
+            {
+                printf("No saved passwords found!\n");
+                return;
+            }
+            char searchService[50];
+            printf("Enter Service Name to search: ");
+            scanf("%s", searchService); 
+    
+            Password searchRecord;
+            int found = 0 ;
+
+            while (fread(&searchRecord, sizeof(searchRecord), 1, fp) == 1){
+                 if (strcmp(searchRecord.serviceName, searchService) == 0){
+
+                    printf("\n==============================\n");
+                    printf("Service Name : %s\n", searchRecord.serviceName);
+                    printf("Username     : %s\n", searchRecord.username);
+                    printf("Password     : %s\n", searchRecord.password);
+                    printf("==============================\n");
+
+                    found = 1;
+                    break;
+                 }
+            }
+
+            fclose(fp);
+
+            if (found == 0)
+            {
+                printf("Service not found!\n");
+            }
 
         }
+
         

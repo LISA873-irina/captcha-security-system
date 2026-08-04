@@ -7,6 +7,8 @@ void viewPassword();
 void updatePassword();
 void deletePassword();
 void passwordStrengthChecker();
+void searchPassword();
+
 typedef struct
 {
     char serviceName[50];
