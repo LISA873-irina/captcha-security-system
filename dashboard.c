@@ -1,5 +1,8 @@
 #include <stdio.h>
 #include "dashboard.h"
+#include "passwordmanager.h"
+#include "securerecords.h"
+
 void dashboard(){
     printf("\n===== SecureVault Dashboard =====\n");
     int choice;
