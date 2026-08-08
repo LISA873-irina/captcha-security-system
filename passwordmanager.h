@@ -8,6 +8,7 @@ void updatePassword();
 void deletePassword();
 void passwordStrengthChecker();
 void searchPassword();
+void sortPassword() ;
 
 typedef struct
 {

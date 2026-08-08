@@ -234,5 +234,46 @@ void passwordManager(){
             }
 
         }
+    void sortPassword(){   
+    FILE *fp = fopen("passwords.dat", "rb");
+
+    if (fp == NULL)
+    {
+        printf("No saved passwords found!\n");
+        return;
+    }
+
+    Password records[100];
+    int count = 0;
+    while (fread(&records[count], sizeof(records[count]), 1, fp) == 1)
+    {
+        count++;
+    }
+
+    fclose(fp);
+    
+    Password tempS;
+
+    for( int i = 0 ; i < count ; i ++ ){
+        for( int j = i ; j < count ; j ++){
+            if (strcmp(records[i].serviceName, records[j].serviceName) > 0){
+
+                tempS = records[i] ;
+                records[i] = records[j] ;
+                records[j] = tempS ;
+                
+            }
+        }
+    }
+
+    fp = fopen("passwords.dat", "wb");
+
+    for (int k = 0; k < count; k++)
+    {
+        fwrite(&records[k], sizeof(records[k]), 1, fp);
+    }
+
+    fclose(fp);
+}
 
         
